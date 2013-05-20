@@ -8,6 +8,7 @@
         "build",
         "tools"
     ],
+    "main": "index.js",
     "dependencies": {},
     "devDependencies": {
         "coffee-script": "1.6.x"
