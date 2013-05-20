@@ -2,7 +2,7 @@ tools = require "./src/tools.coffee"
 
 build = (callback) ->
     tools.print "Building lib", true
-    tools.cmd "coffee", ["-c", "-o", "lib/", "src/"], ->
+    tools.localCmd "coffee", ["-c", "-o", "lib/", "src/"], ->
         tools.print "Done"
         callback?()
 

@@ -21,7 +21,7 @@ class Tools
             @spawn cmd, args, callback
 
     localCmd: (cmd, args, callback) ->
-        runCmd cmd, args, callback, true
+        @cmd cmd, args, callback, true
 
     spawn: (cmd, args, callback) ->
         @print "#{cmd} #{args?.join ' '}"
