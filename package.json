@@ -1,0 +1,22 @@
+{
+    "name": "hapi.app.tools",
+    "version": "0.0.0",
+    "author": "HuzuTech <info@huzutech.com>",
+    "description": "Simple tools for building HAPI projects.",
+    "keywords": [
+        "hapi",
+        "build",
+        "tools"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "coffee-script": "1.6.x"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/HuzuTech/HAPI.App.Tools.git"
+    },
+    "scripts": {
+        "prepublish": "cake build"
+    }
+}
