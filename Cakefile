@@ -10,6 +10,6 @@ task "build", "build the js lib", ->
     build()
 
 task "version", "write and commit the package version", ->
-    version (v) ->
-        writePackageVersion v, ->
-            commitVersion()
+    tools.version (v) ->
+        tools.writePackageVersion v, ->
+            tools.commitVersion v
