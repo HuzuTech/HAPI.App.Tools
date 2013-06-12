@@ -58,12 +58,16 @@ class Tools
             @mergesSinceTag tag, (merges) ->
                 callback "#{tag}.#{merges}"
 
-    writePackageVersion: (version, callback) ->
+    writeToPackageJson: (hash, callback) ->
         pkg = "package.json"
         fs.readFile pkg, (err, str) ->
             json = JSON.parse str
-            json.version = version
+            for k, v of hash
+                json[k] = v
             fs.writeFile pkg, JSON.stringify(json, null, 4), callback
+
+    writePackageVersion: (version, callback) ->
+        @writeToPackageJson version: version, callback
 
     commitVersion: (version, callback) ->
         @cmd "git", ["add", "package.json"], =>
