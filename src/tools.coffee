@@ -43,8 +43,12 @@ class Tools
             @print "'#{cmd}': ERROR: #{err}", false if err
             callback? stdout[..-2]
 
+    fetchTags: (callback) ->
+        @cmd "git", ["fetch", "--tags"], callback
+
     currentTag: (callback) ->
-        @exec "git describe --abbrev=0", callback
+        @fetchTags =>
+            @exec "git describe --abbrev=0", callback
 
     mergesSinceTag: (tag, callback) ->
         @exec "git rev-list #{tag}..HEAD --count --merges", callback
@@ -54,21 +58,31 @@ class Tools
             @mergesSinceTag tag, (merges) ->
                 callback "#{tag}.#{merges}"
 
-    writePackageVersion: (version, callback) ->
+    writeToPackageJson: (hash, callback) ->
         pkg = "package.json"
         fs.readFile pkg, (err, str) ->
             json = JSON.parse str
-            json.version = version
+            for k, v of hash
+                json[k] = v
             fs.writeFile pkg, JSON.stringify(json, null, 4), callback
+
+    writePackageVersion: (version, callback) ->
+        @writeToPackageJson version: version, callback
 
     commitVersion: (version, callback) ->
         @cmd "git", ["add", "package.json"], =>
             @cmd "git", ["commit", "-m", "Version #{version}"], callback
 
     push: (branch, callback) ->
-        @cmd "git", ["push", "origin", branch], callback
+        @cmd "git", ["push", "--tags", "origin", branch], callback
 
     publish: (callback) ->
         @cmd "npm", ["publish"], callback
+
+    release: (callback) ->
+        @version (v) ->
+            @writePackageVersion v, ->
+                @commitVersion v, ->
+                    @push "master"
 
 module.exports = new Tools
