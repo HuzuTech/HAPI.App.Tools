@@ -43,8 +43,12 @@ class Tools
             @print "'#{cmd}': ERROR: #{err}", false if err
             callback? stdout[..-2]
 
+    fetchTags: (callback) ->
+        @cmd "git", ["fetch", "--tags"], callback
+
     currentTag: (callback) ->
-        @exec "git describe --abbrev=0", callback
+        @fetchTags =>
+            @exec "git describe --abbrev=0", callback
 
     mergesSinceTag: (tag, callback) ->
         @exec "git rev-list #{tag}..HEAD --count --merges", callback
@@ -66,7 +70,7 @@ class Tools
             @cmd "git", ["commit", "-m", "Version #{version}"], callback
 
     push: (branch, callback) ->
-        @cmd "git", ["push", "origin", branch], callback
+        @cmd "git", ["push", "--tags", "origin", branch], callback
 
     publish: (callback) ->
         @cmd "npm", ["publish"], callback
