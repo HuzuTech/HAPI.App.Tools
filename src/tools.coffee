@@ -79,7 +79,6 @@ class Tools
         @version (v) ->
             @writePackageVersion v, ->
                 @commitVersion v, ->
-                    @push "master", ->
-                        @publish()
+                    @push "master"
 
 module.exports = new Tools
