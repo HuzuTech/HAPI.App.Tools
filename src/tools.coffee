@@ -80,9 +80,9 @@ class Tools
         @cmd "npm", ["publish"], callback
 
     release: (callback) ->
-        @version (v) ->
-            @writePackageVersion v, ->
-                @commitVersion v, ->
+        @version (v) =>
+            @writePackageVersion v, =>
+                @commitVersion v, =>
                     @push "master"
 
 module.exports = new Tools
