@@ -1,6 +1,6 @@
 {
     "name": "hapi.app.tools",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "author": "HuzuTech <info@huzutech.com>",
     "description": "Simple tools for building HAPI projects.",
     "keywords": [

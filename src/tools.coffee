@@ -15,7 +15,6 @@ class Tools
         cmd = path.join(@localBin, cmd) if local
         if isWindows
             args.unshift cmd
-            args.unshift "node" if local
             cmd = args.join " "
             @exec cmd, callback
         else
