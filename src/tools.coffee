@@ -1,9 +1,10 @@
 fs = require "fs"
 os = require "os"
+path = require "path"
 child_process = require "child_process"
 
 class Tools
-    localBin: "./node_modules/.bin"
+    localBin: path.join "node_modules", ".bin"
 
     print: (msg, header = false) ->
         console.log "####################################################" if header
@@ -11,10 +12,9 @@ class Tools
 
     cmd: (cmd, args, callback, local=false) ->
         isWindows = os.platform().match /^win/
-        cmd = "#{@localBin}/#{cmd}" if local
+        cmd = path.join(@localBin, cmd) if local
         if isWindows
             args.unshift cmd
-            args.unshift "node" if local
             cmd = args.join " "
             @exec cmd, callback
         else
